@@ -208,4 +208,52 @@ public interface Condition {
         }
     }
 
+    public class IsNull implements Condition {
+        private final String column;
+
+        public IsNull(String column) {
+            this.column = column;
+        }
+
+        public String getColumn() {
+            return column;
+        }
+        boolean isNot() {
+            return this instanceof IsNotNull;
+        }
+    }
+
+    class IsNotNull extends IsNull {
+
+        public IsNotNull(String column) {
+            super(column);
+        }
+    }
+
+    public class In implements Condition {
+        private final String column;
+        private final String variable;
+        private final List<Object> values;
+
+        public In(String column, String variable, List<Object> values) {
+            this.column = column;
+            this.variable = variable;
+            this.values = values;
+        }
+
+        public String getColumn() {
+            return column;
+        }
+
+        public String getVariable() {
+            return variable;
+        }
+
+        public List<Object> getValues() {
+            return values;
+        }
+
+        
+    }
+
 }
